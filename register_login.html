@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZubLab.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e 0%, #311b92 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 700px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .left-section {
+            flex: 1;
+            background: linear-gradient(rgba(26, 35, 126, 0.85), rgba(49, 27, 146, 0.9)), url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1352&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 50px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            font-size: 36px;
+            margin-right: 15px;
+            color: #4fc3f7;
+        }
+        
+        .logo-text {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            list-style: none;
+        }
+        
+        .features li {
+            margin-bottom: 15px;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features i {
+            margin-right: 12px;
+            color: #4fc3f7;
+        }
+        
+        .right-section {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .form-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #888;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: #1a237e;
+            border-bottom: 3px solid #1a237e;
+            margin-bottom: -2px;
+        }
+        
+        .form {
+            display: none;
+        }
+        
+        .form.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 16px;
+            color: #777;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            border-color: #1a237e;
+            outline: none;
+        }
+        
+        .input-group select {
+            appearance: none;
+            background-color: white;
+        }
+        
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .btn:hover:not(:disabled) {
+            background: #283593;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .btn-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: block;
+            border-left: 4px solid #2e7d32;
+        }
+        
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+            border-left: 4px solid #c62828;
+        }
+        
+        .message.info {
+            background: #e3f2fd;
+            color: #1565c0;
+            display: block;
+            border-left: 4px solid #1565c0;
+        }
+        
+        .message.warning {
+            background: #fff3e0;
+            color: #ef6c00;
+            display: block;
+            border-left: 4px solid #ef6c00;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1a237e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .google-sheets-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid #0f9d58;
+        }
+        
+        .google-sheets-info i {
+            color: #0f9d58;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                max-width: 600px;
+            }
+            
+            .left-section {
+                padding: 40px 30px;
+            }
+            
+            .tagline {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .left-section, .right-section {
+                padding: 30px 20px;
+            }
+            
+            .tagline {
+                font-size: 28px;
+            }
+            
+            .form-title {
+                font-size: 28px;
+            }
+            
+            .tabs {
+                justify-content: center;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section: Platform Information -->
+        <section class="left-section">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="logo-text">ZubLab</div>
+            </div>
+            
+            <h1 class="tagline">Unlock Your Purpose Through Learning</h1>
+            
+            <p class="description">
+                ZubLab is a purpose-driven learning platform that connects your educational journey with meaningful outcomes. Join our community of learners today.
+            </p>
+            
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> Google Sheets Integration</li>
+                <li><i class="fas fa-check-circle"></i> Real-time Data Storage</li>
+                <li><i class="fas fa-check-circle"></i> Expert-led courses & workshops</li>
+                <li><i class="fas fa-check-circle"></i> Community collaboration</li>
+                <li><i class="fas fa-check-circle"></i> Purpose-driven projects</li>
+            </ul>
+        </section>
+        
+        <!-- Right Section: Login/Register Forms -->
+        <section class="right-section">
+            <div class="form-container">
+                <h2 class="form-title">Welcome to ZubLab</h2>
+                <p class="form-subtitle">Sign in to your account or create a new one to get started</p>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" id="login-tab">Login</div>
+                    <div class="tab" id="register-tab">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="form active" id="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email address" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Remember me</label>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="login-btn">
+                        <span class="btn-text">
+                            <span class="loading" id="login-loading" style="display: none;"></span>
+                            <span id="login-text">Login to ZubLab</span>
+                        </span>
+                    </button>
+                    
+                    <div class="message" id="login-message"></div>
+                </form>
+                
+                <!-- Register Form -->
+                <form class="form" id="register-form">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-name" placeholder="Full name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" placeholder="Email address" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-graduation-cap"></i>
+                        <select id="register-purpose" required>
+                            <option value="" disabled selected>Select your primary learning purpose</option>
+                            <option value="Career">Career Advancement</option>
+                            <option value="Skills">Skill Development</option>
+                            <option value="Personal">Personal Growth</option>
+                            <option value="Social">Social Impact</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="register-btn">
+                        <span class="btn-text">
+                            <span class="loading" id="register-loading" style="display: none;"></span>
+                            <span id="register-text">Create ZubLab Account</span>
+                        </span>
+                    </button>
+                    
+                    <div class="message" id="register-message"></div>
+                </form>
+                
+                <!-- Google Sheets Integration Info -->
+                <div class="google-sheets-info">
+                    <i class="fas fa-exclamation-triangle" style="color: #F4B400; font-size: 24px;"></i>
+                    <div>
+                        <strong>Unique Email Address</strong><br>
+                        
+Each email address can only be used for one registration. Duplicate email registrations are not allowed.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // =============================================
+        // GOOGLE SHEETS CONFIGURATION
+        // =============================================
+        
+        // Google Apps Script Web App URL
+        // IMPORTANT: Replace this with YOUR Google Apps Script deployment URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtrXJvBNboOrsd7U7SV6wmfQwcuZMqHzLvoBoNhQbjuco5dGGMsmutrTWv9OJdvvMK/exec';
+        
+        // =============================================
+        // DOM Elements
+        // =============================================
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const loginMessage = document.getElementById('login-message');
+        const registerMessage = document.getElementById('register-message');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const loginLoading = document.getElementById('login-loading');
+        const registerLoading = document.getElementById('register-loading');
+        const loginText = document.getElementById('login-text');
+        const registerText = document.getElementById('register-text');
+        
+        // =============================================
+        // Tab switching functionality
+        // =============================================
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            clearMessages();
+        });
+        
+        registerTab.addEventListener('click', () => {
+            registerTab.classList.add('active');
+            loginTab.classList.remove('active');
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            clearMessages();
+        });
+        
+        // =============================================
+        // Helper Functions
+        // =============================================
+        
+        function clearMessages() {
+            loginMessage.className = 'message';
+            registerMessage.className = 'message';
+        }
+        
+        function showLoading(button, loadingEl, textEl) {
+            button.disabled = true;
+            loadingEl.style.display = 'inline-block';
+            textEl.textContent = button.id === 'login-btn' ? 'Logging in...' : 'Creating account...';
+        }
+        
+        function hideLoading(button, loadingEl, textEl, originalText) {
+            button.disabled = false;
+            loadingEl.style.display = 'none';
+            textEl.textContent = originalText;
+        }
+        
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = `message ${type}`;
+            
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                if (element.textContent === text) {
+                    element.className = 'message';
+                }
+            }, 5000);
+        }
+        
+        // =============================================
+        // Google Sheets API Functions
+        // =============================================
+        
+        async function registerUserToGoogleSheets(userData) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        action: 'register',
+                        ...userData
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+                
+            } catch (error) {
+                console.error('Google Sheets API Error:', error);
+                throw error;
+            }
+        }
+        
+        async function loginUserWithGoogleSheets(email, password) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        action: 'login',
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                return result;
+                
+            } catch (error) {
+                console.error('Google Sheets API Error:', error);
+                throw error;
+            }
+        }
+        
+        // =============================================
+        // Handle registration form submission
+        // =============================================
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim().toLowerCase();
+            const password = document.getElementById('register-password').value;
+            const purpose = document.getElementById('register-purpose').value;
+            
+            // Basic validation
+            if (password.length < 6) {
+                showMessage(registerMessage, "Password must be at least 6 characters", "error");
+                return;
+            }
+            
+            // Show loading state
+            const originalText = registerText.textContent;
+            showLoading(registerBtn, registerLoading, registerText);
+            
+            // Prepare user data
+            const userData = {
+                name: name,
+                email: email,
+                password: password,
+                purpose: purpose,
+                timestamp: new Date().toISOString(),
+                status: 'active'
+            };
+            
+            try {
+                // Send data to Google Sheets
+                showMessage(registerMessage, "Connecting to Zublab's DB...", "info");
+                
+                const result = await registerUserToGoogleSheets(userData);
+                
+                if (result.success) {
+                    showMessage(registerMessage, "Account created successfully! Data saved to Google Sheets.", "success");
+                    
+                    // Also store in localStorage for session management
+                    const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+                    users.push({
+                        ...userData,
+                        id: result.userId || Date.now().toString(),
+                        googleSheetsId: result.userId
+                    });
+                    localStorage.setItem('zublab_users', JSON.stringify(users));
+                    
+                    // Clear form
+                    registerForm.reset();
+                    
+                    // Switch to login tab after 2 seconds
+                    setTimeout(() => {
+                        loginTab.click();
+                        document.getElementById('login-email').value = email;
+                        document.getElementById('login-password').value = password;
+                        showMessage(loginMessage, "Your credentials have been auto-filled. Click login to continue.", "info");
+                    }, 2000);
+                    
+                } else {
+                    showMessage(registerMessage, result.message || "Registration failed. Please try again.", "error");
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                
+                // Fallback to localStorage if Google Sheets fails
+                showMessage(registerMessage, "ZubLAb account connection failed. Using ZubLab storage as backup...", "warning");
+                
+                // Check if user already exists in localStorage
+                const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+                const userExists = users.some(user => user.email === email);
+                
+                if (userExists) {
+                    showMessage(registerMessage, "Email already registered locally. Please use a different email.", "error");
+                } else {
+                    // Save to localStorage
+                    users.push({
+                        ...userData,
+                        id: Date.now().toString(),
+                        localBackup: true
+                    });
+                    localStorage.setItem('zublab_users', JSON.stringify(users));
+                    
+                    showMessage(registerMessage, "Account created using ZubLab storage backup.", "warning");
+                    
+                    // Clear form and switch to login
+                    registerForm.reset();
+                    setTimeout(() => {
+                        loginTab.click();
+                        document.getElementById('login-email').value = email;
+                        document.getElementById('login-password').value = password;
+                        showMessage(loginMessage, "Account created ZubLab account. ZubLab account connection failed.", "warning");
+                    }, 2000);
+                }
+            } finally {
+                // Restore button
+                hideLoading(registerBtn, registerLoading, registerText, originalText);
+            }
+        });
+        
+        // =============================================
+        // Handle login form submission
+        // =============================================
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+            
+            // Show loading state
+            const originalText = loginText.textContent;
+            showLoading(loginBtn, loginLoading, loginText);
+            
+            try {
+                // Try Google Sheets login first
+                showMessage(loginMessage, "Authenticating with Google...", "info");
+                
+                const result = await loginUserWithGoogleSheets(email, password);
+                
+                if (result.success) {
+                    // Store user session
+                    localStorage.setItem('zublab_current_user', JSON.stringify({
+                        id: result.user.id,
+                        name: result.user.name,
+                        email: result.user.email,
+                        purpose: result.user.purpose,
+                        googleSheetsId: result.user.id,
+                        loggedIn: true,
+                        loginTime: new Date().toISOString(),
+                        source: 'google_sheets'
+                    }));
+                    
+                    // Remember me functionality
+                    const rememberMe = document.getElementById('remember-me').checked;
+                    if (rememberMe) {
+                        localStorage.setItem('zublab_remembered_email', email);
+                    } else {
+                        localStorage.removeItem('zublab_remembered_email');
+                    }
+                    
+                    showMessage(loginMessage, "Login successful!...", "success");
+                    
+                    // Redirect to dashboard after 1.5 seconds
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                    
+                } else {
+                    // Try local storage as fallback
+                    const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+                    const user = users.find(u => u.email === email && u.password === password);
+                    
+                    if (user) {
+                        // Store user session
+                        localStorage.setItem('zublab_current_user', JSON.stringify({
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            purpose: user.purpose,
+                            loggedIn: true,
+                            loginTime: new Date().toISOString(),
+                            source: 'local_storage'
+                        }));
+                        
+                        showMessage(loginMessage, "Login successful!", "warning");
+                        
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } else {
+                        // Check for demo credentials
+                        if (email === '' && password === '') {
+                            // Demo user
+                            localStorage.setItem('zublab_current_user', JSON.stringify({
+                                id: 'demo_123',
+                                name: 'Demo User',
+                                email: '',
+                                purpose: 'exploration',
+                                loggedIn: true,
+                                loginTime: new Date().toISOString(),
+                                isDemo: true,
+                                source: 'demo'
+                            }));
+                            
+                            showMessage(loginMessage, "login successful!", "success");
+                            
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.html';
+                            }, 1500);
+                        } else {
+                            showMessage(loginMessage, "Invalid email or password. Try try again", "error");
+                        }
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                // Fallback to local storage
+                showMessage(loginMessage, "ZubLab account connection failed. Trying ZubLab account...", "warning");
+                
+                const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    localStorage.setItem('zublab_current_user', JSON.stringify({
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        purpose: user.purpose,
+                        loggedIn: true,
+                        loginTime: new Date().toISOString(),
+                        source: 'local_fallback'
+                    }));
+                    
+                    showMessage(loginMessage, "Login successful!", "warning");
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                } else {
+                    showMessage(loginMessage, "Invalid credentials or connection error.", "error");
+                }
+            } finally {
+                // Restore button
+                hideLoading(loginBtn, loginLoading, loginText, originalText);
+            }
+        });
+        
+        // =============================================
+        // Initialize page
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already logged in
+            const currentUser = JSON.parse(localStorage.getItem('zublab_current_user'));
+            if (currentUser && currentUser.loggedIn) {
+                // Redirect to dashboard if already logged in
+                window.location.href = 'dashboard.html';
+            }
+            
+            // Fill remembered email
+            const rememberedEmail = localStorage.getItem('zublab_remembered_email');
+            if (rememberedEmail) {
+                document.getElementById('login-email').value = rememberedEmail;
+                document.getElementById('remember-me').checked = true;
+            }
+            
+            // Pre-fill demo credentials for testing
+            if (!rememberedEmail) {
+                document.getElementById('login-email').value = "";
+                document.getElementById('login-password').value = "";
+                
+                // Show instructions
+                setTimeout(() => {
+                    showMessage(loginMessage, "credentials loaded. Click 'Login to ZubLab' to try.", "info");
+                }, 500);
+            }
+            
+            // Test Google Sheets connection
+            async function testConnection() {
+                try {
+                    const response = await fetch(GOOGLE_SCRIPT_URL + '?action=test');
+                    const data = await response.json();
+                    if (data.status === 'connected') {
+                        console.log('Google Sheets connection: ✅ Active');
+                    }
+                } catch (error) {
+                    console.warn('ZubLab connection: ⚠️ Using fallback mode');
+                }
+            }
+            
+            testConnection();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZubLab.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #1a237e;
+            --accent-blue: #283593;
+            --light-blue: #e8eaf6;
+            --green: #27ae60;
+            --orange: #e67e22;
+            --purple: #9b59b6;
+            --white: #ffffff;
+            --gray: #7f8c8d;
+            --dark: #2c3e50;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-blue);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            color: #4fc3f7;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4fc3f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .data-source-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-left: 5px;
+        }
+        
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(100px, -100px);
+        }
+        
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .purpose-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .icon-blue {
+            background-color: var(--primary-blue);
+        }
+        
+        .icon-green {
+            background-color: var(--green);
+        }
+        
+        .icon-orange {
+            background-color: var(--orange);
+        }
+        
+        .icon-purple {
+            background-color: var(--purple);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-blue);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Courses Section */
+        .courses-section {
+            margin-top: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-image {
+            height: 150px;
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+        }
+        
+        .course-content {
+            padding: 20px;
+        }
+        
+        .course-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .course-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .course-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .course-btn:hover {
+            background-color: var(--accent-blue);
+        }
+        
+        .course-btn.enrolled {
+            background-color: var(--green);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            margin-top: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Google Sheets Status */
+        .sheets-status {
+            background: #84ef0a;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 4px solid #0f9d58;
+            box-shadow: 1 white 3 5;
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+        
+        .sheets-status i {
+            color: #0f9d58;
+            font-size: 24px;
+        }
+        
+        .sheets-status.error {
+            border-left-color: #c62828;
+        }
+        
+        .sheets-status.error i {
+            color: #c62828;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .copyright {
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-menu {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-section {
+                padding: 30px 20px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="dashboard.html" class="logo">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <div class="logo-text">ZubLab</div>
+            </a>
+            
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div>
+                        <div id="userName">Loading...</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;" id="userEmail"></div>
+                    </div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1 class="welcome-title" id="welcomeMessage">Welcome back!</h1>
+            <p class="welcome-subtitle">Continue your learning journey</p>
+            <div class="purpose-badge" id="purposeBadge">
+                Learning Purpose : <span id="userPurpose">Loading...</span>
+                <span class="data-source-badge" id="dataSourceBadge"></span>
+            </div>
+        </section>
+
+        <!-- Google Sheets Status -->
+        <a href="schdule.html"><div class="sheets-status" id="sheetsStatus">
+            <i class="fas fa-calendar-check"></i>
+            <div>
+                <strong id="sheetsStatusText">Connected to Google</strong><br>
+                <small id="sheetsStatusDetail">Your data is being synced with Google in real-time</small>
+            </div>
+        </div></a>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon icon-blue">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title">Learning Progress</h3>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 25%;"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="progressText">25% Complete</span>
+                    <span>Goal: 100%</span>
+                </div>
+                <p style="margin-top: 15px; color: var(--gray);">
+                    You're making great progress! Complete more courses to reach your goals.
+                </p>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon icon-green">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="card-title">Active Course</h3>
+                </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: var(--green); margin: 15px 0;" id="activeCourse">
+                </div>
+                <h1 class="num">3</h1>
+                <p style="color: var(--gray);">
+                    You're currently enrolled in <span id="coursesCount">3</span> courses. Keep up the good work!
+                </p>
+            </div>
+
+            <a href="rohingyaQ.html"><div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon icon-orange">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="card-title">Rohingya Hanifi Script Alphabet</h3>
+                </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: var(--orange); margin: 15px 0;" id="achievementsCount">
+                    10
+                </div>
+                <p style="color: var(--gray);">
+                    You've earned <span id="achievementsText">5</span> achievements so far. Unlock more by completing courses!
+                </p>
+            </div></a>
+
+            <a href="quizE.html"><div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon icon-purple">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">English Alphabet</h3>
+                </div>
+                <div style="font-size: 2.5rem; font-weight: bold; color: var(--purple); margin: 15px 0;" id="communityCount">
+                    8
+                </div>
+                <p style="color: var(--gray);">
+                    Connect with <span id="communityText">42</span> active learners in your network.
+                </p>
+            </div>
+        </div></a>
+
+        <!-- Courses Section -->
+        <section class="courses-section">
+            <h2 class="section-title">
+                <span>Classes</span>
+                <small style="font-size: 1rem; color: var(--gray); font-weight: normal;" id="lastUpdated"></small>
+            </h2>
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses will be loaded dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">ZubLab</div>
+            <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <i class="fab fa-twitter" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                        <i class="fab fa-facebook" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                        <a href="https://youtube.com/@zublab2?si=Mu_tyQeLebWbL6xh"><i class="fab fa-youtube" style="font-size: 1.5rem; color: #3a86ff;"></i></a>
+                        <a href="https://www.instagram.com/zub_lab1?igsh=MWlwMmg3Mm5uZ2twZw=="><i class="fab fa-instagram" style="font-size: 1.5rem; color: #3a86ff;"></i></a>
+                        <i class="fab fa-linkedin" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                    </div>
+            <div class="copyright">
+                &copy; 2025 ZubLab. Purpose-Driven Learning Platform. All rights reserved.<br>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // =============================================
+        // GOOGLE SHEETS CONFIGURATION
+        // =============================================
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtrXJvBNboOrsd7U7SV6wmfQwcuZMqHzLvoBoNhQbjuco5dGGMsmutrTWv9OJdvvMK/exec';
+        
+        // =============================================
+        // Check if user is logged in
+        // =============================================
+        function checkLoginStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('zublab_current_user'));
+            
+            if (!currentUser || !currentUser.loggedIn) {
+                // Redirect to login page if not logged in
+                window.location.href = 'index.html';
+                return null;
+            }
+            
+            return currentUser;
+        }
+        
+        // =============================================
+        // Update user info on dashboard
+        // =============================================
+        function updateUserInfo() {
+            const currentUser = checkLoginStatus();
+            if (!currentUser) return;
+            
+            // Update user information
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            
+            // Set avatar initial
+            const userAvatar = document.getElementById('userAvatar');
+            userAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
+            userAvatar.style.backgroundColor = getRandomColor();
+            
+            // Update welcome message
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${currentUser.name}!`;
+            
+            // Update purpose badge
+            const purposeText = currentUser.purpose ? 
+                currentUser.purpose.charAt(0).toUpperCase() + currentUser.purpose.slice(1) : 
+                'Not specified';
+            document.getElementById('userPurpose').textContent = purposeText;
+            
+            // Update data source badge
+            const sourceBadge = document.getElementById('dataSourceBadge');
+            if (currentUser.source === 'google_sheets') {
+                sourceBadge.textContent = 'Google Sheets';
+                sourceBadge.style.background = 'rgba(15, 157, 88, 0.3)';
+            } else if (currentUser.source === 'demo') {
+                sourceBadge.textContent = 'Demo Account';
+                sourceBadge.style.background = 'rgba(239, 108, 0, 0.3)';
+            } else {
+                sourceBadge.textContent = 'ZubLab Storage';
+                sourceBadge.style.background = 'rgba(41, 98, 255, 0.3)';
+            }
+            
+            // Update Google Sheets status
+            const sheetsStatus = document.getElementById('sheetsStatus');
+            const statusText = document.getElementById('sheetsStatusText');
+            const statusDetail = document.getElementById('sheetsStatusDetail');
+            
+            if (currentUser.source === 'google_sheets') {
+                statusText.textContent = 'Connected to Google Sheets';
+                statusDetail.textContent = 'Your data is being synced with Google Sheets in real-time';
+                sheetsStatus.className = 'sheets-status';
+            } else {
+                statusText.textContent = 'Schedule';
+                statusDetail.textContent = 'Click! to check schedule';
+                sheetsStatus.className = 'sheets-status error';
+            }
+        }
+        
+        // =============================================
+        // Generate random color for avatar
+        // =============================================
+        function getRandomColor() {
+            const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // =============================================
+        // Handle logout
+        // =============================================
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // Clear current user session
+            localStorage.removeItem('zublab_current_user');
+            
+            // Redirect to login page
+            window.location.href = 'index.html';
+        });
+        
+        // =============================================
+        // Google Sheets API Functions for Dashboard
+        // =============================================
+        async function saveUserProgressToGoogleSheets(userId, progressData) {
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        action: 'update_progress',
+                        userId: userId,
+                        ...progressData
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Error saving to Google Sheets:', error);
+                return { success: false, message: 'Failed to save to Google Sheets' };
+            }
+        }
+        
+        // =============================================
+        // Course Management
+        // =============================================
+        const courses = [
+            {
+                id: 'web-dev',
+                title: 'Arabic',
+                description: 'Learn Arabic language.',
+                duration: 'Daily: 4:00 PM - 5:00 PM Sun and Mon',
+                level: 'Beginner',
+                icon: 'fas fa-book',
+            },
+            {
+                id: 'data-analysis',
+                title: 'Rohingya',
+                description: 'Learn Rohingya language',
+                duration: 'Daily: 4:00 PM - 5:00 PM Sat',
+                level: 'Beginner',
+                icon: 'fas fa-chart-bar',
+                
+            },
+            {
+                id: 'ui-ux',
+                title: 'English',
+                description: 'Learn English language.',
+                duration: 'Daily: 4:00 PM - 5:00 PM Tue and Web',
+                level: 'Beginner',
+                icon: 'fas fa-paint-brush',
+                
+            },
+        ];
+        
+        function loadCourses() {
+            const coursesGrid = document.getElementById('coursesGrid');
+            const currentUser = JSON.parse(localStorage.getItem('zublab_current_user'));
+            
+            // Get user's enrolled courses from localStorage
+            const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+            const user = users.find(u => u.id === currentUser?.id);
+            const enrolledCourses = user?.courses || [];
+            
+            // Generate course cards
+            coursesGrid.innerHTML = courses.map(course => `
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="${course.icon}"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">${course.title}</h3>
+                        <p class="course-description">${course.description}</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                            <span><i class="fas fa-signal"></i> ${course.level}</span>
+                        </div>
+                        <a href="payment.html">
+                        <button class="course-btn ${course.enrolled ? 'enrolled' : ''}" 
+                                data-course="${course.id}"
+                                onclick="enrollInCourse('${course.id}')">
+                            ${course.enrolled ? '<i class="fas fa-check"></i> Enrolled' : 'Enroll Now'}
+                        </button>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update active courses count
+            const activeCoursesCount = enrolledCourses.length;
+            document.getElementById('activeCourses').textContent = activeCoursesCount;
+            document.getElementById('coursesCount').textContent = activeCoursesCount;
+        }
+        
+        // =============================================
+        // Course Enrollment Function
+        // =============================================
+        async function enrollInCourse(courseId) {
+            const currentUser = JSON.parse(localStorage.getItem('zublab_current_user'));
+            if (!currentUser) return;
+            
+            // Find course
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex === -1) return;
+            
+            // Check if already enrolled
+            if (users[userIndex].courses && users[userIndex].courses.includes(courseId)) {
+                alert(`You're already enrolled in "${course.title}"`);
+                return;
+            }
+            
+            // Update user data
+            if (!users[userIndex].courses) users[userIndex].courses = [];
+            users[userIndex].courses.push(courseId);
+            
+            // Update progress
+            users[userIndex].progress = Math.min(100, (users[userIndex].progress || 0) + 15);
+            
+            // Save to localStorage
+            localStorage.setItem('zublab_users', JSON.stringify(users));
+            
+            // Try to save to Google Sheets
+            if (currentUser.source === 'google_sheets' && currentUser.googleSheetsId) {
+                try {
+                    await saveUserProgressToGoogleSheets(currentUser.googleSheetsId, {
+                        courses: users[userIndex].courses,
+                        progress: users[userIndex].progress,
+                        lastUpdated: new Date().toISOString()
+                    });
+                } catch (error) {
+                    console.warn('Failed to sync with Google Sheets:', error);
+                }
+            }
+            
+            // Update UI
+            updateProgress(users[userIndex].progress);
+            loadCourses();
+            
+            // Show success message
+            alert(`Successfully enrolled in "${course.title}"!`);
+        }
+        
+        // =============================================
+        // Update Progress
+        // =============================================
+        function updateProgress(newProgress) {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressFill.style.width = newProgress + '%';
+            progressText.textContent = newProgress + '% Complete';
+            
+            // Update stats based on progress
+            const studyHours = Math.floor(newProgress * 0.5 + 10);
+            const completedLessons = Math.floor(newProgress * 0.8 + 15);
+            const streakDays = Math.floor(newProgress / 20) + 3;
+            const certificates = Math.floor(newProgress / 50) + 1;
+            
+            document.getElementById('studyHours').textContent = studyHours;
+            document.getElementById('completedLessons').textContent = completedLessons;
+            document.getElementById('streakDays').textContent = streakDays;
+            document.getElementById('certificates').textContent = certificates;
+            
+            document.getElementById('achievementsCount').textContent = certificates + 4;
+            document.getElementById('achievementsText').textContent = certificates + 4;
+        }
+        
+        // =============================================
+        // Update Community Stats
+        // =============================================
+        function updateCommunityStats() {
+            const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+            const communityCount = users.length > 0 ? users.length * 3 + 30 : 42;
+            
+            document.getElementById('communityCount').textContent = communityCount;
+            document.getElementById('communityText').textContent = communityCount;
+        }
+        
+        // =============================================
+        // Update Last Updated Time
+        // =============================================
+        function updateLastUpdatedTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const dateString = now.toLocaleDateString();
+            document.getElementById('lastUpdated').textContent = `Last updated: ${dateString} ${timeString}`;
+        }
+        
+        // =============================================
+        // Initialize Dashboard
+        // =============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check login and update user info
+            const currentUser = checkLoginStatus();
+            if (!currentUser) return;
+            
+            updateUserInfo();
+            loadCourses();
+            updateCommunityStats();
+            updateLastUpdatedTime();
+            
+            // Load user progress
+            const users = JSON.parse(localStorage.getItem('zublab_users') || '[]');
+            const user = users.find(u => u.id === currentUser.id);
+            
+            if (user && user.progress) {
+                updateProgress(user.progress);
+            } else {
+                // Default progress for new users
+                updateProgress(25);
+            }
+            
+            // Auto-logout for demo account after 30 minutes
+            if (currentUser.isDemo) {
+                setTimeout(() => {
+                    const demoAlert = confirm('Your demo session is about to expire. Would you like to extend it?');
+                    if (!demoAlert) {
+                        localStorage.removeItem('zublab_current_user');
+                        window.location.href = 'index.html';
+                    }
+                }, 30 * 60 * 1000);
+            }
+            
+            // Update time every minute
+            setInterval(updateLastUpdatedTime, 60000);
+        });
+    </script>
+</body>
+</html>

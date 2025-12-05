@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Teams Meeting Link View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f2f2f2;
+            color: #323130;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background-color: #464775;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header i {
+            font-size: 28px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .meeting-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .meeting-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .meeting-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #323130;
+        }
+        
+        .meeting-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meta-item i {
+            color: #6264A7;
+            width: 20px;
+        }
+        
+        .participants-section {
+            margin-top: 15px;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #323130;
+        }
+        
+        .participants {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .participant {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f3f2f1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .participant-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #6264A7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .meeting-actions {
+            flex: 1;
+            min-width: 300px;
+            background-color: #faf9f8;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        .actions-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #323130;
+        }
+        
+        .join-options {
+            margin-bottom: 25px;
+        }
+        
+        .join-option {
+            background-color: white;
+            border: 1px solid #e1dfdd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .join-option:hover {
+            background-color: #f3f2f1;
+            border-color: #d2d0ce;
+        }
+        
+        .join-option.active {
+            border-color: #6264A7;
+            background-color: #f1f1fa;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .option-desc {
+            font-size: 14px;
+            color: #605e5c;
+        }
+        
+        .link-section {
+            margin-top: 20px;
+        }
+        
+        .link-box {
+            background-color: white;
+            border: 1px solid #e1dfdd;
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .meeting-link {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: monospace;
+            color: #323130;
+        }
+        
+        .copy-btn {
+            background-color: #6264A7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #464775;
+        }
+        
+        .copy-btn.copied {
+            background-color: #107c10;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .action-buttons a{
+            text-decoration: none;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: #6264A7;
+            color: white;
+            flex: 2;
+        }
+        
+        .btn-primary:hover {
+            background-color: #464775;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #323130;
+            border: 1px solid #e1dfdd;
+            flex: 1;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f3f2f1;
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #107c10;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .participant-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .participant-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e1dfdd;
+            border-radius: 4px;
+        }
+        
+        .participant-add-btn {
+            background-color: #6264A7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .meeting-info {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .meeting-actions {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fab fa-microsoft"></i>
+            <h1>Teams Meeting</h1>
+        </div>
+        
+        <div class="content">
+            <div class="meeting-info">
+                <div class="meeting-details">
+                    <h2 class="meeting-title">Daily clase</h2>
+                    
+                    <div class="meeting-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Today, 4:00 PM - 5:00 PM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="far fa-clock"></i>
+                            <span>1 hour</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>Organizer: ZubLab</span>
+                        </div>
+                    </div>
+                
+                <div class="meeting-actions">
+                    <h3 class="actions-title">Join Options</h3>
+                    
+                    <div class="join-options">
+                        <div class="join-option active" id="optionTeams">
+                            <div class="option-title">
+                                <i class="fab fa-microsoft"></i>
+                                <span>Join with Teams</span>
+                            </div>
+                            <div class="option-desc">Get the best experience by joining with the Teams app</div>
+                        </div>
+                        
+                        <div class="join-option" id="optionBrowser">
+                            <div class="option-title">
+                                <i class="fas fa-globe"></i>
+                                <span>Join on the web</span>
+                            </div>
+                            <div class="option-desc">Join through your web browser without installing the app</div>
+                        </div>
+                    </div>
+            <div class="action-buttons">
+             <a href="https://teams.live.com/meet/9340731749056?p=5mQ8GvXwyp4TOpxhjl"><button class="btn btn-primary" id="joinBtn">
+                    <i class="fas fa-video"></i>
+                    Join Now
+                </button></a> 
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Meeting link copied to clipboard!</span>
+    </div>
+    
+    <script>
+        
+        // DOM Elements
+        const participantsList = document.getElementById('participantsList');
+        const participantInput = document.getElementById('participantInput');
+        const addParticipantBtn = document.getElementById('addParticipantBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const notification = document.getElementById('notification');
+        const joinBtn = document.getElementById('joinBtn');
+        const calendarBtn = document.getElementById('calendarBtn');
+        const meetingLink = document.getElementById('meetingLink');
+        const optionTeams = document.getElementById('optionTeams');
+        const optionBrowser = document.getElementById('optionBrowser');
+        
+        // Initialize participants list
+        function renderParticipants() {
+            participantsList.innerHTML = '';
+            const participants = JSON.parse(localStorage.getItem('meetingParticipants')) || initialParticipants;
+            
+            participants.forEach(participant => {
+                const participantElement = document.createElement('div');
+                participantElement.className = 'participant';
+                participantElement.innerHTML = `
+                    <div class="participant-avatar">${participant.initials}</div>
+                    <span>${participant.name}</span>
+                `;
+                participantsList.appendChild(participantElement);
+            });
+        }
+        
+        // Add a new participant
+        function addParticipant(name) {
+            if (!name.trim()) return;
+            
+            // Get current participants from localStorage or use initial ones
+            const participants = JSON.parse(localStorage.getItem('meetingParticipants')) || initialParticipants;
+            
+            // Generate initials from name
+            const nameParts = name.trim().split(' ');
+            let initials = '';
+            if (nameParts.length === 1) {
+                initials = nameParts[0].substring(0, 2).toUpperCase();
+            } else {
+                initials = (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
+            }
+            
+            // Add new participant
+            participants.push({ name: name.trim(), initials });
+            
+            // Save to localStorage
+            localStorage.setItem('meetingParticipants', JSON.stringify(participants));
+            
+            // Re-render the list
+            renderParticipants();
+            
+            // Clear input
+            participantInput.value = '';
+        }
+        
+        // Copy meeting link to clipboard
+        function copyToClipboard() {
+            const textToCopy = meetingLink.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Show notification
+                copyBtn.classList.add('copied');
+                copyBtn.textContent = 'Copied!';
+                
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.textContent = 'Copy';
+                    notification.classList.remove('show');
+                }, 3000);
+            });
+        }
+        
+        // Handle join button click
+        function handleJoinClick() {
+            const isTeamsOptionActive = optionTeams.classList.contains('active');
+            
+            if (isTeamsOptionActive) {
+                // Simulate opening Teams app
+                alert('Opening Microsoft Teams application...');
+            } else {
+                // Simulate opening browser join page
+                window.open(meetingLink.textContent, '_blank');
+            }
+        }
+        
+        // Handle add to calendar
+        function handleAddToCalendar() {
+            alert('Added to your calendar!');
+        }
+        
+        // Initialize join option selection
+        optionTeams.addEventListener('click', () => {
+            optionTeams.classList.add('active');
+            optionBrowser.classList.remove('active');
+        });
+        
+        optionBrowser.addEventListener('click', () => {
+            optionBrowser.classList.add('active');
+            optionTeams.classList.remove('active');
+        });
+        
+        // Event listeners
+        addParticipantBtn.addEventListener('click', () => {
+            addParticipant(participantInput.value);
+        });
+        
+        participantInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addParticipant(participantInput.value);
+            }
+        });
+        
+        copyBtn.addEventListener('click', copyToClipboard);
+        joinBtn.addEventListener('click', handleJoinClick);
+        calendarBtn.addEventListener('click', handleAddToCalendar);
+        
+        // Initialize the page
+        renderParticipants();
+        
+        // Generate a random meeting ID for demo purposes
+        function generateRandomMeetingId() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < 20; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+        
+        // Update meeting link with random ID on page load
+        window.addEventListener('load', () => {
+            const randomId = generateRandomMeetingId();
+            const currentLink = meetingLink.textContent;
+            const newLink = currentLink.replace(/meeting_[^%]+/, `meeting_${randomId}`);
+            meetingLink.textContent = newLink;
+        });
+    </script>
+</body>
+</html>

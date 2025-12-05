@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZubLab - Purpose Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3a86ff;
+        }
+        
+        .logo-icon {
+            color: #3a86ff;
+            font-size: 2rem;
+        }
+        
+        .menu-bar {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .register-btn {
+            background: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.25);
+        }
+        
+        .register-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(58, 134, 255, 0.35);
+            background: linear-gradient(135deg, #2667cc 0%, #3a86ff 100%);
+        }
+        
+        .register-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .registered-badge {
+            background-color: #4caf50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: #3a86ff;
+            position: relative;
+        }
+        
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(58, 134, 255, 0.2);
+            z-index: -1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .illustration {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: #ffffff;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #3a86ff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background-color: rgba(58, 134, 255, 0.1);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 1.8rem;
+            color: #3a86ff;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        /* Registration Info Section */
+        .registration-info {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .info-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .info-box h3 {
+            color: #3a86ff;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-icon {
+            background-color: rgba(58, 134, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .info-icon i {
+            color: #3a86ff;
+            font-size: 1.3rem;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-btn {
+            background-color: white;
+            color: #3a86ff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cta-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn:disabled {
+            background-color: #f0f0f0;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        /* Registration Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .registration-modal {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-30px);
+            transition: transform 0.4s ease;
+        }
+        
+        .modal-overlay.active .registration-modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .modal-header h2 {
+            color: #1a1a2e;
+            font-size: 2rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+        }
+        
+        .close-modal:hover {
+            color: #3a86ff;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: #3a86ff;
+            outline: none;
+        }
+        
+        .error-message {
+            color: #f44336;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #3a86ff 0%, #2667cc 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(58, 134, 255, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a2e;
+            color: #ddd;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .menu-bar {
+                gap: 15px;
+            }
+            
+            .register-btn {
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .registration-modal {
+                padding: 30px 20px;
+            }
+            
+            .info-box {
+                padding: 25px;
+            }
+        }
+       .features-grid a{
+            text-decoration: none;
+            color: #1a1a2e;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Menu Bar -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    ZubLab
+                </div>
+                <div class="menu-bar">
+                    <a href="register_login.html"><div id="registrationStatus">
+                        <!-- Will be populated by JavaScript -->
+                    </div></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Discover Your <span>Purpose</span> Through Learning</h1>
+                    <p>ZubLab is a purpose-driven learning platform that connects your educational journey with meaningful goals. We help you develop skills that align with your passions and life objectives.</p>
+                    <a href="register_login.html"><button class="register-btn" id="heroRegisterBtn">
+                        <i class="fas fa-rocket"></i> Start Your Journey
+                    </button></a>
+                </div>
+                <div class="hero-image">
+                    <svg class="illustration" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="400" height="300" rx="20" fill="#e3f2fd"/>
+                        <circle cx="250" cy="150" r="60" fill="#3a86ff"/>
+                        <path d="M250 100 L270 160 L230 160 Z" fill="white"/>
+                        <rect x="150" y="230" width="200" height="40" rx="10" fill="#bbdefb"/>
+                        <rect x="180" y="240" width="140" height="20" rx="5" fill="#3a86ff"/>
+                        <circle cx="200" cy="290" r="15" fill="#ff9e00"/>
+                        <circle cx="250" cy="290" r="15" fill="#4caf50"/>
+                        <circle cx="300" cy="290" r="15" fill="#f44336"/>
+                        <text x="250" y="380" text-anchor="middle" font-family="Arial" font-size="18" fill="#333">Purpose-Driven Learning Paths</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">How ZubLab Works</h2>
+            <p class="section-subtitle">Our purpose learning methodology is designed to help you connect education with your personal and professional goals.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    <a href="schdule.html"></div>
+                    <h3>Define Your Purpose</h3>
+                    <p>Identify your core motivations and set meaningful learning goals that align with your life's purpose.</p>
+                </div></a>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3>Personalized Learning Path</h3>
+                    <p>Get a customized curriculum that matches your purpose, skills, and timeline for maximum impact.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Community & Mentorship</h3>
+                    <p>Connect with like-minded learners and purpose-driven mentors who can guide your journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Info Section -->
+    <section class="registration-info">
+        <div class="container">
+            <div class="info-box">
+                <h3>Registration Policy</h3>
+                <p>To ensure fair access for all learners, ZubLab has implemented the following registration rules:</p>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div>
+                        <h4>One Registration Per Device</h4>
+                        <p>Each device can only register one account. This prevents multiple registrations from the same device.</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Unique Email Address</h4>
+                        <p>Each email address can only be used for one registration. Duplicate email registrations are not allowed.</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div>
+                        <h4>How It Works</h4>
+                        <p>Our system detects if your device has already registered or if your email is already in use. If you've already registered, you'll see a confirmation message instead of the registration form.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready for learning</h2>
+            <p>Platform accessible in Rohingya or a bridge language like Arabic, English and Rohingya"</p>
+            <button class="cta-btn" id="ctaRegisterBtn">
+                <i class="fas fa-user-plus"></i> Register 
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZubLab</h3>
+                    <p>A purpose-driven learning platform that helps you connect education with meaningful goals and personal growth.</p>
+                    <div class="logo" style="color: white; font-size: 1.5rem;">
+                        <i class="fas fa-graduation-cap logo-icon"></i>
+                        ZubLab
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> info@zublab.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Bangladesh Refugee Camp</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected with our community</p>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <i class="fab fa-twitter" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                        <i class="fab fa-facebook" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                        <a href="https://youtube.com/@zublab2?si=Mu_tyQeLebWbL6xh"><i class="fab fa-youtube" style="font-size: 1.5rem; color: #3a86ff;"></i></a>
+                        <a href="https://www.instagram.com/zub_lab1?igsh=MWlwMmg3Mm5uZ2twZw=="><i class="fab fa-instagram" style="font-size: 1.5rem; color: #3a86ff;"></i></a>
+                        <i class="fab fa-linkedin" style="font-size: 1.5rem; color: #3a86ff;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 ZubLab. All rights reserved. |  Learn on our online peer-to-peer platform.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Device Registration Management System
+        class RegistrationManager {
+            constructor() {
+                this.deviceId = this.getDeviceId();
+                this.registeredEmails = this.getRegisteredEmails();
+                this.deviceRegistration = this.getDeviceRegistration();
+                this.initializeUI();
+            }
+            
+            // Generate a unique device ID based on browser fingerprint
+            getDeviceId() {
+                // Try to get existing device ID from localStorage
+                let deviceId = localStorage.getItem('zublab_device_id');
+                
+                // If not found, create a new one
+                if (!deviceId) {
+                    // Create a fingerprint from available browser properties
+                    const fingerprint = [
+                        navigator.userAgent,
+                        navigator.language,
+                        screen.width + 'x' + screen.height,
+                        new Date().getTimezoneOffset()
+                    ].join('|');
+                    
+                    // Generate a hash (simple implementation for demo)
+                    deviceId = this.hashCode(fingerprint).toString();
+                    localStorage.setItem('zublab_device_id', deviceId);
+                }
+                
+                return deviceId;
+            }
+            
+            // Simple hash function for demo purposes
+            hashCode(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return Math.abs(hash);
+            }
+            
+            // Get registered emails from localStorage
+            getRegisteredEmails() {
+                const emails = localStorage.getItem('zublab_registered_emails');
+                return emails ? JSON.parse(emails) : [];
+            }
+            
+            // Save registered emails to localStorage
+            saveRegisteredEmails() {
+                localStorage.setItem('zublab_registered_emails', JSON.stringify(this.registeredEmails));
+            }
+            
+            // Get device registration status
+            getDeviceRegistration() {
+                const registration = localStorage.getItem(`zublab_device_${this.deviceId}`);
+                return registration ? JSON.parse(registration) : null;
+            }
+            
+            // Save device registration
+            saveDeviceRegistration(email, userData) {
+                const registration = {
+                    email: email,
+                    registeredAt: new Date().toISOString(),
+                    deviceId: this.deviceId,
+                    userData: userData
+                };
+                
+                localStorage.setItem(`zublab_device_${this.deviceId}`, JSON.stringify(registration));
+                return registration;
+            }
+            
+            // Check if device is already registered
+            isDeviceRegistered() {
+                return this.deviceRegistration !== null;
+            }
+            
+            // Check if email is already registered
+            isEmailRegistered(email) {
+                return this.registeredEmails.includes(email.toLowerCase());
+            }
+            
+            // Register a new user
+            registerUser(fullName, email, password, purpose) {
+                // Check if device is already registered
+                if (this.isDeviceRegistered()) {
+                    return {
+                        success: false,
+                        message: 'This device has already registered an account.',
+                        type: 'device'
+                    };
+                }
+                
+                // Check if email is already registered
+                if (this.isEmailRegistered(email)) {
+                    return {
+                        success: false,
+                        message: 'This email is already registered.',
+                        type: 'email'
+                    };
+                }
+                
+                // Create user data
+                const userData = {
+                    fullName: fullName,
+                    email: email.toLowerCase(),
+                    purpose: purpose,
+                    registeredDate: new Date().toISOString(),
+                    userId: 'user_' + Date.now()
+                };
+                
+                // Save registration
+                this.registeredEmails.push(email.toLowerCase());
+                this.saveRegisteredEmails();
+                this.saveDeviceRegistration(email, userData);
+                
+                return {
+                    success: true,
+                    message: 'Registration successful!',
+                    data: userData
+                };
+            }
+            
+            // Get current registration status
+            getStatus() {
+                if (this.isDeviceRegistered()) {
+                    return {
+                        registered: true,
+                        email: this.deviceRegistration.email,
+                        date: this.deviceRegistration.registeredAt
+                    };
+                }
+                
+                return { registered: false };
+            }
+            
+            // Initialize UI based on registration status
+            initializeUI() {
+                const status = this.getStatus();
+                const statusElement = document.getElementById('registrationStatus');
+                
+                if (status.registered) {
+                    // Device is already registered
+                    statusElement.innerHTML = `
+                        <div class="registered-badge">
+                            <i class="fas fa-check-circle"></i> Registered
+                        </div>
+                    `;
+                    
+                    // Disable register buttons
+                    const registerButtons = document.querySelectorAll('.register-btn, .cta-btn');
+                    registerButtons.forEach(btn => {
+                        btn.disabled = true;
+                        btn.innerHTML = '<i class="fas fa-check"></i> Already Registered';
+                    });
+                } else {
+                    // Device is not registered
+                    statusElement.innerHTML = `
+                        <button class="register-btn" id="openRegisterModal">
+                            <i class="fas fa-user-plus"></i> Register Now
+                        </button>
+                    `;
+                }
+            }
+        }
+
+        // DOM Elements
+        const registrationManager = new RegistrationManager();
+        const openRegisterModalBtn = document.getElementById('openRegisterModal');
+        const heroRegisterBtn = document.getElementById('heroRegisterBtn');
+        const ctaRegisterBtn = document.getElementById('ctaRegisterBtn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const registrationModal = document.getElementById('registrationModal');
+        const registrationForm = document.getElementById('registrationForm');
+        const emailError = document.getElementById('emailError');
+        const deviceError = document.getElementById('deviceError');
+        const alreadyRegisteredMessage = document.getElementById('alreadyRegisteredMessage');
+        const registeredEmail = document.getElementById('registeredEmail');
+        const submitBtn = document.getElementById('submitBtn');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // Open modal when any register button is clicked
+        function openRegistrationModal() {
+            const status = registrationManager.getStatus();
+            
+            if (status.registered) {
+                // Show already registered message
+                modalTitle.textContent = 'Already Registered';
+                registrationForm.style.display = 'none';
+                deviceError.style.display = 'none';
+                alreadyRegisteredMessage.style.display = 'block';
+                registeredEmail.textContent = status.email;
+            } else {
+                // Show registration form
+                modalTitle.textContent = 'Join ZubLab';
+                registrationForm.style.display = 'block';
+                deviceError.style.display = 'none';
+                alreadyRegisteredMessage.style.display = 'none';
+                registrationForm.reset();
+            }
+            
+            registrationModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Set up event listeners for register buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'openRegisterModal' || 
+                e.target.id === 'heroRegisterBtn' || 
+                e.target.id === 'ctaRegisterBtn' ||
+                e.target.closest('#openRegisterModal') ||
+                e.target.closest('#heroRegisterBtn') ||
+                e.target.closest('#ctaRegisterBtn')) {
+                openRegistrationModal();
+            }
+        });
+
+        // Close modal when X button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            registrationModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside of it
+        registrationModal.addEventListener('click', (e) => {
+            if (e.target === registrationModal) {
+                registrationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Handle form submission
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const purpose = document.getElementById('purpose').value;
+            
+            // Validate form
+            if (!fullName || !email || !password || !purpose) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            // Attempt registration
+            const result = registrationManager.registerUser(fullName, email, password, purpose);
+            
+            if (result.success) {
+                // Registration successful
+                alert(`Thank you for registering, ${fullName}! We've sent a confirmation email to ${email}. Your purpose: ${purpose}.`);
+                
+                // Reset form and close modal
+                registrationForm.reset();
+                registrationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Update UI
+                registrationManager.initializeUI();
+                
+                // Log the registration data (for demo purposes)
+                console.log('Registration successful:', result.data);
+            } else {
+                // Registration failed
+                if (result.type === 'device') {
+                    // Device already registered
+                    deviceError.style.display = 'block';
+                    emailError.style.display = 'none';
+                    submitBtn.disabled = true;
+                } else if (result.type === 'email') {
+                    // Email already registered
+                    emailError.style.display = 'block';
+                    deviceError.style.display = 'none';
+                }
+            }
+        });
+
+        // Clear errors when user starts typing
+        document.getElementById('email').addEventListener('input', () => {
+            emailError.style.display = 'none';
+            submitBtn.disabled = false;
+        });
+
+        // Add a simple animation to feature cards on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Initialize registration status
+            registrationManager.initializeUI();
+        });
+        // In your form's JavaScript, replace the form submit handler
+registrationForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get your unique Web App URL from Apps Script deployment
+    const scriptUrl = 'YOUR_WEB_APP_URL_HERE';
+
+    // Prepare data to send (including deviceId from your RegistrationManager)
+    const formData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value, // Note: storing passwords in Sheets is not secure for production
+        purpose: document.getElementById('purpose').value,
+        deviceId: registrationManager.deviceId // From your existing RegistrationManager class
+    };
+
+    try {
+        const response = await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors', // Important for cross-origin requests
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        // For no-cors mode, we can't read the response directly
+        // Instead, show a generic success message
+        alert('Registration submitted! Check your email for confirmation.');
+        registrationForm.reset();
+        registrationModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Update UI to show registered status
+        registrationManager.initializeUI();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Registration failed. Please try again.');
+    }
+});
+    </script>
+</body>
+</html>
