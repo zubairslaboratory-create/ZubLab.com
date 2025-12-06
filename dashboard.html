@@ -1458,6 +1458,82 @@
         a{
             text-decoration: none;
         }
+        
+        /* Logout Confirmation Modal Styles */
+        .logout-confirmation {
+            text-align: center;
+        }
+        
+        .logout-icon {
+            font-size: 4rem;
+            color: #f44336;
+            margin-bottom: 20px;
+            background: rgba(244, 67, 54, 0.1);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        
+        .logout-message {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .logout-details {
+            color: var(--gray-color);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .logout-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .logout-btn {
+            min-width: 120px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .logout-btn.confirm {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+        
+        .logout-btn.confirm:hover {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+        
+        .logout-btn.cancel {
+            background: #f5f5f5;
+            color: var(--dark-color);
+            border: 1px solid #ddd;
+        }
+        
+        .logout-btn.cancel:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -1727,19 +1803,19 @@
             </div>
 
             <!-- Courses Content -->
-            <div id="courses-content" class="page-content">
+            <a href="studentid.html"><div id="courses-content" class="page-content">
                 <div class="courses-grid">
                     <div class="course-card">
                         <div class="course-header">
-                            <h3>Mathematics 101</h3>
-                            <p>Prof. John Smith</p>
+                            <h3>Arabic</h3>
+                            <p>Forid</p>
                         </div>
                         <div class="course-body">
                             <div class="course-info">
                                 <span data-key="courseCode">Course Code: <strong>MATH101</strong></span>
                                 <span data-key="credits">Credits: 3</span>
                             </div>
-                            <p>Introduction to calculus and algebra fundamentals.</p>
+                            <p>Learn Arabic</p>
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 75%"></div>
                             </div>
@@ -1748,9 +1824,9 @@
                                 <span data-key="grade">Grade: A-</span>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
 
-                    <div class="course-card">
+                    <a href="studentid.html"><div class="course-card">
                         <div class="course-header">
                             <h3>Computer Science</h3>
                             <p>Dr. Sarah Johnson</p>
@@ -1769,9 +1845,9 @@
                                 <span data-key="grade">Grade: B+</span>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
 
-                    <div class="course-card">
+                   <a href="studentid.html"> <div class="course-card">
                         <div class="course-header">
                             <h3>Physics 101</h3>
                             <p>Dr. Robert Chen</p>
@@ -1792,7 +1868,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div></a>
 
             <!-- Settings Content -->
             <div id="settings-content" class="page-content">
@@ -1860,9 +1936,9 @@
                                 <div class="language-selector">
                                     <select id="settings-language-select" class="form-control">
                                         <option value="en">English</option>
-                                        <option value="ar">🇸🇦 العربية (Arabic)</option>
-                                        <option value="ur"> اردو (Urdu)</option>
-                                        <option value="rhg">𐴏𐴟𐴁𐴞𐴐𐴠𐴑 𐴌𐴟𐴁𐴡𐴤𐴞𐴤 (Rohingya)</option>
+                                        <option value="ar">Arabic</option>
+                                        <option value="ur">Urdu</option>
+                                        <option value="rhg">Rohingya</option>
                                     </select>
                                 </div>
                             </div>
@@ -2063,6 +2139,30 @@
         </div>
     </div>
 
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logout-confirmation-modal">
+        <div class="modal">
+            <div class="modal-body">
+                <div class="logout-confirmation">
+                    <div class="logout-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <h3 class="logout-message" data-key="logoutConfirm">Are you sure you want to logout?</h3>
+                    <p class="logout-details" data-key="logoutConfirmDesc">You will be redirected to the login page and will need to sign in again to access your account.</p>
+                    
+                    <div class="logout-buttons">
+                        <button class="logout-btn cancel" id="cancel-logout-btn">
+                            <i class="fas fa-times"></i> <span data-key="cancel">Cancel</span>
+                        </button>
+                        <button class="logout-btn confirm" id="confirm-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> <span data-key="logout">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // =============================================
         // GOOGLE SHEETS CONFIGURATION
@@ -2161,6 +2261,8 @@
                 session: "Session",
                 logout: "Logout",
                 logoutDesc: "Sign out from your ZubLab account on all devices",
+                logoutConfirm: "Are you sure you want to logout?",
+                logoutConfirmDesc: "You will be redirected to the login page and will need to sign in again to access your account.",
                 
                 // Modals
                 editProfile: "Edit Profile Information",
@@ -2269,6 +2371,8 @@
                 session: "الجلسة",
                 logout: "تسجيل الخروج",
                 logoutDesc: "تسجيل الخروج من حساب ZubLab الخاص بك على جميع الأجهزة",
+                logoutConfirm: "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+                logoutConfirmDesc: "سيتم إعادة توجيهك إلى صفحة تسجيل الدخول وسوف تحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
                 
                 // Modals
                 editProfile: "تعديل معلومات الملف الشخصي",
@@ -2377,6 +2481,8 @@
                 session: "سیشن",
                 logout: "لاگ آؤٹ",
                 logoutDesc: "اپنے ZubLab اکاؤنٹ سے تمام آلات پر سائن آؤٹ کریں",
+                logoutConfirm: "کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟",
+                logoutConfirmDesc: "آپ کو لاگ ان صفحہ پر ری ڈائریکٹ کیا جائے گا اور اپنے اکاؤنٹ تک رسائی کے لیے دوبارہ سائن ان کرنے کی ضرورت ہوگی۔",
                 
                 // Modals
                 editProfile: "پروفائل کی معلومات میں ترمیم کریں",
@@ -2485,6 +2591,8 @@
                 session: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
                 logout: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
                 logoutDesc: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
+                logoutConfirm: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
+                logoutConfirmDesc: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
                 
                 // Modals
                 editProfile: "𐴌𐴟𐴁𐴡𐴤𐴞𐴤",
@@ -2557,10 +2665,13 @@
         const changePasswordBtn = document.getElementById('change-password-btn');
         const editProfileModal = document.getElementById('edit-profile-modal');
         const changePasswordModal = document.getElementById('change-password-modal');
+        const logoutConfirmationModal = document.getElementById('logout-confirmation-modal');
         const closeEditProfileModal = document.getElementById('close-edit-profile-modal');
         const closeChangePasswordModal = document.getElementById('close-change-password-modal');
         const cancelEditProfile = document.getElementById('cancel-edit-profile');
         const cancelChangePassword = document.getElementById('cancel-change-password');
+        const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
+        const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
         const saveProfileBtn = document.getElementById('save-profile-btn');
         const savePasswordBtn = document.getElementById('save-password-btn');
         
@@ -3452,17 +3563,23 @@
             });
         });
         
+        // Logout functionality with confirmation dialog
         logoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
+            logoutConfirmationModal.classList.add('active');
+        });
+        
+        cancelLogoutBtn.addEventListener('click', function() {
+            logoutConfirmationModal.classList.remove('active');
+        });
+        
+        confirmLogoutBtn.addEventListener('click', function() {
             localStorage.removeItem('zublab_current_user');
             currentUser = null;
-            
+            logoutConfirmationModal.classList.remove('active');
             showAuthPage();
-            
             document.getElementById('login-email').value = '';
             document.getElementById('login-password').value = '';
-            
             showMessage(loginMessage, "You have been logged out successfully.", "info");
         });
         
